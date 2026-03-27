@@ -13,13 +13,22 @@ const SERVICE_TYPES = [
   '주일 본 예배'
 ];
 
+const ERA_OPTIONS = [
+  '전체 (상관없음)',
+  '1980-90년대 (고전 복음성가)',
+  '2000년대 (어노인팅, 마커스 초기)',
+  '2010년대 (제이워십, 아이제이아 등)',
+  '최신/현대 (2020년대 이후)'
+];
+
 export default function App() {
   const [step, setStep] = useState<'form' | 'loading' | 'result'>('form');
   const [formData, setFormData] = useState({
     serviceType: '주일 본 예배',
     theme: '',
     songCount: 4,
-    preference: ''
+    preference: '',
+    preferredEra: '전체 (상관없음)'
   });
   const [result, setResult] = useState<string>('');
   const [error, setError] = useState<string | null>(null);
@@ -68,6 +77,7 @@ export default function App() {
 - 예배 종류: ${formData.serviceType}
 - 주제 및 말씀: ${formData.theme || '자유 주제'}
 - 요청 곡 수: ${formData.songCount}곡
+- 선호하는 연대: ${formData.preferredEra}
 - 선호하는 첫 곡 또는 Key (선택사항): ${formData.preference || '없음'}`;
 
       const response = await ai.models.generateContent({
@@ -202,6 +212,25 @@ export default function App() {
                         {formData.songCount}곡
                       </span>
                     </div>
+                  </div>
+
+                  {/* Preferred Era */}
+                  <div>
+                    <label htmlFor="preferredEra" className="flex items-center gap-2 text-sm font-semibold text-stone-900 mb-2">
+                      <RefreshCw className="w-4 h-4 text-stone-500" />
+                      선호하는 연대 (출시 시기)
+                    </label>
+                    <select
+                      id="preferredEra"
+                      name="preferredEra"
+                      value={formData.preferredEra}
+                      onChange={handleInputChange}
+                      className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl focus:ring-2 focus:ring-stone-800 focus:border-stone-800 transition-colors outline-none"
+                    >
+                      {ERA_OPTIONS.map(era => (
+                        <option key={era} value={era}>{era}</option>
+                      ))}
+                    </select>
                   </div>
 
                   {/* Preference */}
