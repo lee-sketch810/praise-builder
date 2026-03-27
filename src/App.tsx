@@ -35,7 +35,7 @@ export default function App() {
     setError(null);
 
     try {
-      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
+      const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY2 || process.env.GEMINI_API_KEY });
       
       const systemInstruction = `너는 교회 찬양 인도자를 돕는 전문 '워십 디렉터 AI'이다. 예배의 성격, 시간대, 요청 곡 수, 코드(Key) 흐름을 분석하여 영성이 깊으면서도 음악적으로 매끄러운 찬양 콘티를 구성한다.
 
