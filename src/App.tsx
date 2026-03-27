@@ -71,7 +71,7 @@ export default function App() {
 - 선호하는 첫 곡 또는 Key (선택사항): ${formData.preference || '없음'}`;
 
       const response = await ai.models.generateContent({
-        model: 'gemini-3.1-pro-preview',
+        model: 'gemini-3-flash-preview',
         contents: prompt,
         config: {
           systemInstruction,
